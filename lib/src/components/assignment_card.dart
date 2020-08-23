@@ -38,12 +38,8 @@ class AssignmentCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text('Fecha de entrega: ', style: titleStyle),
-            Text(date),
-          ],
-        ),
+        Text('Fecha de entrega: ', style: titleStyle),
+        Text(date),
         Row(
           children: [
             Text(

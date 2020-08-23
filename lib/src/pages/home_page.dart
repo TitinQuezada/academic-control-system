@@ -41,11 +41,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildCards(BuildContext context, CollegeModel college) {
-    Function onTap = _goToPeriods(context);
-    return CollegeCard(college, onTap);
-  }
-
-  Function _goToPeriods(BuildContext context) {
-    return () => Navigator.pushNamed(context, 'periods');
+    Function goToPeriods = () => Navigator.pushNamed(context, 'periods');
+    return CollegeCard(college, goToPeriods);
   }
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:sca/src/components/assignment_card.dart';
 import 'package:sca/src/helpers/qualification_helper.dart';
 import 'package:sca/src/models/assignments_model.dart';
 
 class AssignmentsPage extends StatelessWidget {
-  final assignments = Assignments.getAssignments();
+  final assignments = Assignment.getAssignments();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,58 +22,11 @@ class AssignmentsPage extends StatelessWidget {
     );
   }
 
-  Widget buildCards(BuildContext context, Assignments assignments) {
-    return Card(
-        child: InkWell(
-            onTap: () {},
-            child: ListTile(
-                title: Text('${assignments.name}'),
-                subtitle: Column(
-                  children: [
-                    Text('Fecha de entrega: ${assignments.deliveredDate}'),
-                    Row(
-                      children: [
-                        Text('Entregado: '),
-                        getDeliveedIcon(assignments.delivered)
-                      ],
-                    )
-                  ],
-                ),
-                leading: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Valor'),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Text('${assignments.worth.toInt()}'),
-                  ],
-                ),
-                trailing: Column(
-                  children: [
-                    Text('Calificacion'),
-                    Text(
-                      '${assignments.qualification}',
-                      style: TextStyle(
-                        color: getAssignmentQualificationColor(
-                            assignments.worth, assignments.qualification),
-                      ),
-                    )
-                  ],
-                ))));
+  Widget buildCards(BuildContext context, Assignment assignment) {
+    return AssignmentCard(assignment);
   }
 
-  Icon getDeliveedIcon(bool delivered) {
-    if (delivered) {
-      return Icon(
-        Icons.check,
-        color: Colors.green,
-      );
-    } else {
-      return Icon(
-        Icons.not_interested,
-        color: Colors.red,
-      );
-    }
+  _prueba(DateTime date) {
+    final f = DateFormat.yMd().add_jm().format(date);
   }
 }

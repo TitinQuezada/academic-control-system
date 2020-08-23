@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sca/src/components/application_app_bar.dart';
+import 'package:sca/src/components/period_card.dart';
 import 'package:sca/src/models/academic_period_model.dart';
 
 class PeriodsPage extends StatelessWidget {
@@ -7,80 +9,42 @@ class PeriodsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Periodos'),
-          centerTitle: true,
-        ),
-        body: ListView.builder(
-          itemCount: periods.length,
-          itemBuilder: (BuildContext context, int index) {
-            return buildCards(context, periods[index]);
-          },
-        ),
-        floatingActionButton: buildFloatingActionButton());
-  }
-
-  Widget buildCards(BuildContext context, AcademicPeriodModel period) {
-    return Card(
-      margin: EdgeInsets.all(10.0),
-      elevation: 3.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      child: InkWell(
-          onTap: () => Navigator.pushNamed(context, 'subjects'),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ListTile(
-                title: Row(
-                  children: [
-                    Text('Periodo: ',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text('${period.initialMonth} - ${period.finishMonth}')
-                  ],
-                ),
-                subtitle: Text(
-                  '${period.year}',
-                ),
-                trailing: PopupMenuButton(
-                  onSelected: (value) => print(value),
-                  itemBuilder: (BuildContext context) {
-                    return [
-                      PopupMenuItem(
-                        value: 0,
-                        child: Text('Agregar materia'),
-                      ),
-                      PopupMenuItem(
-                        value: 1,
-                        child: Text('Editar periodo'),
-                      )
-                    ];
-                  },
-                ),
-              ),
-              Text(
-                '${period.college} - ${period.carrer}',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 15.0),
-              )
-            ],
-          )),
+      appBar: ApplicationAppBar('Periodos'),
+      body: Container(
+          margin: EdgeInsets.only(top: 10, bottom: 10), child: _buildBody()),
     );
   }
 
-  Widget buildFloatingActionButton() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+  Widget _buildBody() {
+    return Column(
       children: [
-        SizedBox(
-          width: 30.0,
-        ),
-        FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.add),
-        ),
+        _buildPeriods(),
+        _buildFooter(),
       ],
     );
   }
+
+  Widget _buildFooter() {
+    return FloatingActionButton(
+      onPressed: () {},
+      child: Icon(Icons.add),
+    );
+  }
+
+  Widget _buildPeriods() {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: periods.length,
+        itemBuilder: (BuildContext context, int index) {
+          return buildCards(context, periods[index]);
+        },
+      ),
+    );
+  }
+
+  Widget buildCards(BuildContext context, AcademicPeriodModel period) {
+    Function goToSubjects = () => Navigator.pushNamed(context, 'subjects');
+    return PeriodCard(period, onTap: goToSubjects);
+  }
 }
+// Navigator.pushNamed(context, 'subjects'),

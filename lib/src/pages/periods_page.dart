@@ -47,4 +47,3 @@ class PeriodsPage extends StatelessWidget {
     return PeriodCard(period, onTap: goToSubjects);
   }
 }
-// Navigator.pushNamed(context, 'subjects'),

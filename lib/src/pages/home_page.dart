@@ -18,7 +18,10 @@ class HomePage extends StatelessWidget {
 
   Widget _buildBody() {
     return Column(
-      children: [_buildColleges(), _buildFooter()],
+      children: [
+        _buildColleges(),
+        _buildFooter(),
+      ],
     );
   }
 
